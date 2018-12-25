@@ -18,7 +18,7 @@ router.get('/', auth, async (req, res, next) => {
 router.post('/login', async (req, res, next) => {
       try {
           //Todo implements repository with access database
-          let user = MOCKS.USERS.find(user => user.email === req.body.email);
+          let user = await MOCKS.USERS.find(user => user.email === req.body.email);
           if (user) {
               if(bcrypt.compareSync(req.body.password, user.password)) {
                   //Todo implements sign of token with system environments
@@ -29,7 +29,7 @@ router.post('/login', async (req, res, next) => {
                   throw Error('PASSWORD_WRONG');
               }
           }else{
-              throw Error('AUTHENTICATED_FAIL');
+              throw Error('USER_NOT_FOUND');
           }
       }catch (err) {
           return next(err)

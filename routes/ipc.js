@@ -14,8 +14,8 @@ const mapCreditsGraph = async (data) => {
 /* GET graph listing. */
 router.get('/', auth, async (req, res, next) => {
     try {
-        const response = await gbmService.getDataGraph('ipc');
-        const graphCredits = await Promise.all(response.data.resultObj.map(mapCreditsGraph));
+        const response = await gbmService.getDataGraph(50);
+        const graphCredits = await Promise.all(response.map(mapCreditsGraph));
         const results = [
             {name: 'Precios', series: graphCredits}
         ];

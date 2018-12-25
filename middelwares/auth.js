@@ -7,7 +7,6 @@ module.exports = async function(req, res, next) {
             const token = jwt.verify(req.headers['authorization'], AUTH.TOKEN)
             const user = MOCKS.USERS.find(user => user.id === token.sub);
             req.user = user;
-            delete req.user.password;
         }
         catch(err) {
             return res.status(401).json({
